@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import Database from "../database/index.js";
-import bcrypt from "bcrypt.js"
+import bcrypt from "bcryptjs"
 const User= Database.define('Users',{
     nome:{
         type: DataTypes.STRING,

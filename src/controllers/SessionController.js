@@ -1,0 +1,30 @@
+import jwt from "jsonwebtoken"
+import bcrypt from "bcryptjs"
+
+import User from "../models/UserModel.js"
+import authConfig from "../config/auth.js"
+
+class SessionController {
+    async CreateSession(req, res) {
+        const { email,password } = req.body
+
+        const user = await User.findOne({ where: { email } })
+        if (!user) {
+            res.json("Usurario não cadastrado")
+        }
+        const checkPassword = await bcrypt.compare(toString(password), user.password_hash)
+        if (!checkPassword) {
+            res.json('Usuario ou senha incorretos.')
+        }
+        const { id, nome } = user
+        return res.json({
+            user: {
+                id,
+                nome
+            },
+            token: jwt.sign({ id }, authConfig.secret)
+        })
+    }
+
+}
+export default new SessionController

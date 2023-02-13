@@ -1,4 +1,5 @@
 import {Router, json} from "express"
+import EsqueceuSenhaController from "./controllers/EsqueceuSenhaController.js"
 import ProductController from "./controllers/productController.js"
 import SessionController from "./controllers/SessionController.js"
 import userController from "./controllers/userController.js"
@@ -9,6 +10,8 @@ routes.use(json())
 
 routes.post("/user/create",userController.addUser)
 routes.post("/user/login",SessionController.CreateSession)
+routes.post("/recuperarsenha",EsqueceuSenhaController.esqueceuSenha)
+
 routes.use(authMiddleware)
 
 
